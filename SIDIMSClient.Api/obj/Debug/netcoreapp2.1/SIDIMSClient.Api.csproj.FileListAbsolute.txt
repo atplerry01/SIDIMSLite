@@ -1,0 +1,14 @@
+C:\Development\SecureID\VSCode\SIDIMSClient\SIDIMSClient.Api\bin\Debug\netcoreapp2.1\SIDIMSClient.Api.deps.json
+C:\Development\SecureID\VSCode\SIDIMSClient\SIDIMSClient.Api\bin\Debug\netcoreapp2.1\SIDIMSClient.Api.runtimeconfig.json
+C:\Development\SecureID\VSCode\SIDIMSClient\SIDIMSClient.Api\bin\Debug\netcoreapp2.1\SIDIMSClient.Api.runtimeconfig.dev.json
+C:\Development\SecureID\VSCode\SIDIMSClient\SIDIMSClient.Api\bin\Debug\netcoreapp2.1\SIDIMSClient.Api.dll
+C:\Development\SecureID\VSCode\SIDIMSClient\SIDIMSClient.Api\bin\Debug\netcoreapp2.1\SIDIMSClient.Api.pdb
+C:\Development\SecureID\VSCode\SIDIMSClient\SIDIMSClient.Api\obj\Debug\netcoreapp2.1\SIDIMSClient.Api.csprojAssemblyReference.cache
+C:\Development\SecureID\VSCode\SIDIMSClient\SIDIMSClient.Api\obj\Debug\netcoreapp2.1\SIDIMSClient.Api.csproj.CoreCompileInputs.cache
+C:\Development\SecureID\VSCode\SIDIMSClient\SIDIMSClient.Api\obj\Debug\netcoreapp2.1\SIDIMSClient.Api.RazorAssemblyInfo.cache
+C:\Development\SecureID\VSCode\SIDIMSClient\SIDIMSClient.Api\obj\Debug\netcoreapp2.1\SIDIMSClient.Api.RazorAssemblyInfo.cs
+C:\Development\SecureID\VSCode\SIDIMSClient\SIDIMSClient.Api\obj\Debug\netcoreapp2.1\SIDIMSClient.Api.AssemblyInfoInputs.cache
+C:\Development\SecureID\VSCode\SIDIMSClient\SIDIMSClient.Api\obj\Debug\netcoreapp2.1\SIDIMSClient.Api.AssemblyInfo.cs
+C:\Development\SecureID\VSCode\SIDIMSClient\SIDIMSClient.Api\obj\Debug\netcoreapp2.1\SIDIMSClient.Api.RazorTargetAssemblyInfo.cache
+C:\Development\SecureID\VSCode\SIDIMSClient\SIDIMSClient.Api\obj\Debug\netcoreapp2.1\SIDIMSClient.Api.dll
+C:\Development\SecureID\VSCode\SIDIMSClient\SIDIMSClient.Api\obj\Debug\netcoreapp2.1\SIDIMSClient.Api.pdb
