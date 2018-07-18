@@ -4,7 +4,7 @@ import axios from 'axios';
 import moment from 'moment';
 import DatePicker from 'react-datepicker';
 import ReactToPrint from "react-to-print";
-
+import {NavLink} from 'react-router-dom';
 import 'react-datepicker/dist/react-datepicker.css';
 
 import SelectInput from "../../Components/common/SelectInput";
@@ -38,41 +38,113 @@ class Inventory extends Component {
     };
   }
 
-  componentWillReceiveProps() {
+  componentWillMount() {
+    const { match: { params } } = this.props;
+    this.getProductStockList(params.id);
+    this.setState({ selectedProductId: params.id });
+
+    const productId = params.id;
+
+    axios.get('http://localhost:5000/api/clients/' + 1 + '/products/' + productId + '/stocklists')
+    .then(response => {
+      console.log( response.data[0]);
+    })
+    .catch(function (error) {
+    })
+
+    // get Product
+    axios.get('http://localhost:5000/api/products/' + productId)
+    .then(response => {
+      this.setState({ productName: response.data });
+    })
+    .catch(function (error) {
+    })
+
+    axios.get('http://localhost:5000/api/clients/' + 1 + '/products')
+      .then(response => {
+        console.log(response.data);
+        this.setState({ products: response.data });
+      })
+      .catch(function (error) {
+        console.log(error);
+      })
 
   }
 
+  
+  getProductStockList(productId) {
+    console.log(productId);
+    axios.get('http://localhost:5000/api/clients/' + 1 + '/products/' + productId + '/stocklists')
+      .then(response => {
+        console.log( response.data);
+        //this.setState({ stockReports: response.data });
+      })
+      .catch(function (error) {
+      })
+  }
+
+  componentWillReceiveProps(nextProps) {
+      console.log(nextProps.match.params.id);
+
+    const productId = nextProps.match.params.id;
+
+     // get Product
+     axios.get('http://localhost:5000/api/products/' + productId)
+     .then(response => {
+       this.setState({ productName: response.data });
+     })
+     .catch(function (error) {
+     })
+
+    axios.get('http://localhost:5000/api/clients/' + 1 + '/products/' + productId + '/stocklists')
+      .then(response => {
+        console.log(response.data);
+        this.setState({ stockReports: response.data });
+      })
+      .catch(function (error) {
+      })
+
+    // if (this.props.issueTracker.id !== nextProps.issueTracker.id) {
+    //     // Necessary to populate form when existing course is loaded directly.
+    //     this.setState({ issueTracker: Object.assign({}, nextProps.issueTracker) });
+    // }
+    }
+
+
   onDateFilter() {
+
+    this.getProductStockList(this.state.selectedProductId);
+
     const {startDate, endDate, stockReports} = this.state;
     let filteredStocks;
+    let dateFilteredStocks = [];
 
     var start = moment(startDate._d).format('L');
     var end = moment(endDate._d).format('L');
 
     if (stockReports) {
-      filteredStocks  = stockReports.filter(
+      dateFilteredStocks  = stockReports.filter(
         (stock) => {
           let rawDate = moment(stock.createdOn).format('L');
-          
-          if (end >= rawDate) {
-            console.log(rawDate);
-            console.log(start);
-          }
 
-          // if (rawDate <= end) {
-          //   console.log(rawDate);
-          //   console.log(end);
+          // if (start <= rawDate && end >= rawDate) {
+          //   dateFilteredStocks.push(stock);
           // }
 
           return (
-            rawDate <= start
+            start <= rawDate && end >= rawDate
           );
         }
       );
+
+      
+      this.setState({stockReports: dateFilteredStocks});
+      console.log(dateFilteredStocks);
     }
 
-    console.log(filteredStocks);
-    
+    //console.log(filteredStocks);
+    this.setState({stockReports: dateFilteredStocks});
+
   }
 
   handleStartDateChange(date) {
@@ -121,6 +193,7 @@ class Inventory extends Component {
       .catch(function (error) {
       })
   }
+
   getProduct(clientId) {
     axios.get('http://localhost:5000/api/clients/' + clientId + '/products')
       .then(response => {
@@ -191,6 +264,7 @@ class Inventory extends Component {
     const products = lookupDropDown(this.state.products);
     const { issuanceQuantity, receiptQuantity, clientId, productId, remark, description, stockReports, dateRange, search } = this.state;
 
+    
     if(stockReports) {
       filteredStocks  = stockReports.filter((stock) => {
           return (
@@ -232,6 +306,18 @@ class Inventory extends Component {
       }
     };
 
+    const productTables = () => {
+      if (this.state.products) {
+        return this.state.products.map((product, index) => {
+          return (
+            <li key={product.id}>
+              <NavLink to={'/mis/' + product.id}>{product.name}</NavLink>
+            </li>
+          )
+        })
+      }
+    }
+
     const stockReportTable = () => {
       if (stockReports) {
         return filteredStocks.map((stock, index) => {
@@ -261,64 +347,20 @@ class Inventory extends Component {
               <div className="col-lg-4">
                 <div className="sidebar" data-style="padding-right:25px">
                   <div>
+
                     <div className="widget fix widget_categories2">
                       <h4>All Product List</h4>
 
                       <div>
 
                         {dropClients()}
-                        {dropProducts()}
+                        {productTables()}
 
-                        <Tabs
-                          defaultActiveKey={1}
-                          animation={false}
-                          id="noanim-tab-example">
-
-                          <Tab eventKey={1} title="Card Issuance">
-                            <div data-style="padding-top:10px">
-                              <br />
-                              <input
-                                type="text"
-                                name="remark"
-                                value = {remark}
-                                onChange={this.onChange}
-                                placeholder="Job Description"
-                              />
-                              <input
-                                type="text"
-                                name="issuanceQuantity"
-                                value = {issuanceQuantity}
-                                onChange={this.onChange}
-                                placeholder=" Issuance Quantity"
-                              />
-                              <input type="submit" value="Submit"  onClick = {this.onSaveIssuance} />
-                            </div>
-                          </Tab>
-                          <Tab eventKey={2} title="Received Stock">
-                            <div data-style="padding-top:10px">
-                              <br />
-                              <input
-                                type="text"
-                                name="description"
-                                value = {description}
-                                onChange={this.onChange}
-                                placeholder="Description"
-                              />
-                              <input
-                                type="text"
-                                name="receiptQuantity"
-                                value = {receiptQuantity}
-                                onChange={this.onChange}
-                                className="search-field"
-                                placeholder=" Receive Quantity"
-                              />
-
-                              <input type="submit" value="Submit" onClick = {this.onSaveReceipt} />
-                            </div>
-                          </Tab>
-                        </Tabs>
                       </div>
                     </div>
+
+
+                    
                   </div>
                 </div>
               </div>

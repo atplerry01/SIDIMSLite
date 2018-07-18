@@ -26,14 +26,7 @@ namespace SIDIMSClient.Api.Controllers
         
         
         #region CardIssuance
-                  
-        // [HttpGet("cardIssuance")]
-        // public async Task<IEnumerable<CardIssuanceResource>> GetClientCardIssuances()
-        // {
-        //     var cardReceipts = await context.CardReceipts.ToListAsync();
-        //     return mapper.Map<IEnumerable<CardReceipt>, IEnumerable<CardReceiptResource>>(cardReceipts);
-        // }
-
+      
         [HttpPost("issuance/create")]
         public async Task<IActionResult> CreateClientCardIssuance([FromBody] CardIssuanceSaveResource entity)
         {
@@ -136,9 +129,9 @@ namespace SIDIMSClient.Api.Controllers
             if (vaultReport == null) {
                 vaultReport = new ClientVaultReport(){
                     SidProductId = product.Id,
-                    OpeningStock = entity.Quantity,
+                    OpeningStock = 0, //entity.Quantity,
                     ClosingStock = 0,
-                    CurrentStock = entity.Quantity,
+                    CurrentStock = 0,//entity.Quantity,
                     CreateOn = DateTime.Now,
                     ModifiedOn = DateTime.Now
                 };

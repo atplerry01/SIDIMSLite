@@ -29,6 +29,20 @@ namespace SIDIMSClient.Api.Controllers
             return mapper.Map<IEnumerable<SidProduct>, IEnumerable<ProductResource>>(products);
         }
 
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetIssueTracker(int id)
+        {
+
+            var issueTracker = await context.SidProducts
+                .SingleOrDefaultAsync(it => it.Id == id);
+
+            if (issueTracker == null) return NotFound();
+
+            var issueTrackerResource = mapper.Map<SidProduct, ProductResource>(issueTracker);
+
+            return Ok(issueTrackerResource);
+        }
+
 
 
         [HttpPost("create")]

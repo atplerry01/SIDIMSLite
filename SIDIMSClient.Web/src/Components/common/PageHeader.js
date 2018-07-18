@@ -12,8 +12,8 @@ const PageHeader = () => (
                         <span className="sr-only">Toggle navigation</span>
                         <span className="fa fa-bars"></span>
                     </button>
-                    <NavLink to="/index.html" className="brand">
-                        <img src={Logo} alt="Knowledge" />
+                    <NavLink to="/" className="brand" style={{fontSize: '32px', color: '#fff'}}>
+                        SIDIMSLite
                     </NavLink>
                 </div>
                 <div className="navbar-collapse collapse" id="navbar-collapse">

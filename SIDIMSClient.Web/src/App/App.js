@@ -13,6 +13,7 @@ import Dashboard from "../Pages/dashboard/Dashboard";
 import LoginPage from '../Components/login/LoginForm';
 
 import ClientMIS from "../Pages/client/mis";
+import StockDetail from "../Pages/client/stocklist";
 import Inventory from "../Pages/inventory/mis";
 
 class App extends Component {
@@ -49,11 +50,9 @@ class App extends Component {
       })
   }
 
-  
   getProduct(clientId) {
     axios.get('http://localhost:5000/api/clients/' + clientId + '/products')
       .then(response => {
-        console.log(response.data);
         this.setState({ products: response.data });
       })
       .catch(function (error) {
@@ -99,6 +98,7 @@ class App extends Component {
                 <Switch>
 
                     <Route path="/mis" exact render={() => (<ClientMIS {...this.state} />)} />
+                    <Route path="/mis/:id" exact component={StockDetail} />
                     <Route path="/inventory" exact render={() => (<Inventory {...this.state} />)} />
 
                     <Route path="/login" render={(routeProps) => (<LoginPage changeLoginAuth={this.toggleAuthentication} {...routeProps} {...this.props} {...this.state}/>)} />

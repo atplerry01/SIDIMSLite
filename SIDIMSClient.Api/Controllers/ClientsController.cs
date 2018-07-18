@@ -39,6 +39,16 @@ namespace SIDIMSClient.Api.Controllers
             return mapper.Map<IEnumerable<SidProduct>, IEnumerable<ProductResource>>(products);
         }
 
+        [HttpGet("{clientId}/vaults")]
+        public async Task<IEnumerable<ClientVaultReportResource>> GetVaults(int clientId)
+        {
+            var products = await context.ClientVaultReports.Where(p => p.SidProduct.SidClientId == clientId)
+                .Include(s => s.SidProduct)
+                .ToListAsync();
+
+            return mapper.Map<IEnumerable<ClientVaultReport>, IEnumerable<ClientVaultReportResource>>(products);
+        }
+
         [HttpGet("{clientId}/products/{id}")]
         public async Task<IActionResult> GetProduct(int id)
         {

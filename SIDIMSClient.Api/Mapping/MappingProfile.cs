@@ -18,6 +18,7 @@ namespace SIDIMSClient.Api.Mapping
             CreateMap<SidProduct, ProductResource>();
             CreateMap<CardIssuance, CardIssuanceResource>();
             CreateMap<CardIssuanceLog, CardIssuanceLogResource>();
+            CreateMap<ClientVaultReport, ClientVaultReportResource>();
             
             // // Api Resources to Domain
             CreateMap<CardReceiptSaveResource, CardReceipt>();
