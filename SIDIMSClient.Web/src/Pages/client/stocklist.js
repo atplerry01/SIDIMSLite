@@ -156,6 +156,7 @@ class Inventory extends Component {
   }
 
   handleEndDateChange(date) {
+    
     if (this.state.filterChange == true) {
       this.getProductStockList(this.state.selectedProductId);
     }
